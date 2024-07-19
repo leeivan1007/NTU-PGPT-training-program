@@ -168,8 +168,8 @@ def show_cross_entropy_loss():
     
 def evaluate_accuracy(data_test, parameters):
 
-  x_test = data_test.iloc[:, 0:4].values.T
-  y_test = data_test.iloc[:, 4:].values.T
+  x_test = data_test.iloc[:, 0:4].values
+  y_test = data_test.iloc[:, 4:].values
   y_test = y_test.astype('uint8')
 
   w1 = parameters['w1']
@@ -177,9 +177,9 @@ def evaluate_accuracy(data_test, parameters):
   w2 = parameters['w2']
   b2 = parameters['b2']
 
-  z1 = np.dot(w1, x_test) + b1
+  z1 = np.dot(x_test, w1) + b1
   a1 = np.tanh(z1)
-  z2 = np.dot(w2, a1) + b2
+  z2 = np.dot(a1, w2) + b2
   a2 = 1 / (1 + np.exp(-z2))
 
   class_num = y_test.shape[0]
